@@ -3,6 +3,7 @@ package com.raichusaurus.biggify;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -27,7 +28,10 @@ public class BiggifyActivity extends AppCompatActivity {
     }
 
     protected void biggify(String message) {
-        TextView messageView = (TextView) findViewById(R.id.message);
-        messageView.setText(message);
+        if (message.length() > 0) {
+            TextView messageView = (TextView) findViewById(R.id.message);
+            String currentLetter = message.charAt(0) + "";
+            messageView.setText(currentLetter);
+        }
     }
 }
