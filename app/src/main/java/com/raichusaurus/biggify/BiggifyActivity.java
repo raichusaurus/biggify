@@ -1,6 +1,7 @@
 package com.raichusaurus.biggify;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -14,12 +15,15 @@ public class BiggifyActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "message";
 
+    private String message = "";
+    private int currentChar = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biggify);
-        String message = getMessage();
-        biggify(message);
+        message = getMessage();
+        biggify();
     }
 
     protected String getMessage() {
@@ -29,9 +33,9 @@ public class BiggifyActivity extends AppCompatActivity {
         return messageText;
     }
 
-    protected void biggify(String message) {
+    protected void biggify() {
         if (message.length() > 0) {
-            TextView messageView = (TextView) findViewById(R.id.message);
+            final TextView messageView = (TextView) findViewById(R.id.message);
 
             Display display = getWindowManager().getDefaultDisplay();
             DisplayMetrics displayMetrics = new DisplayMetrics ();
@@ -41,9 +45,22 @@ public class BiggifyActivity extends AppCompatActivity {
             float dpHeight = displayMetrics.heightPixels / density;
             float dpWidth  = displayMetrics.widthPixels / density;
 
-            String currentLetter = message.charAt(0) + "";
-            messageView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dpWidth - 20);
-            messageView.setText(currentLetter);
+
+            messageView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dpWidth - 25);
+
+            final Handler handler = new Handler();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (currentChar >= message.length()) {
+                        return;
+                    }
+                    String currentLetter = message.charAt(currentChar) + "";
+                    messageView.setText(currentLetter);
+                    currentChar++;
+                    handler.postDelayed(this, 500);
+                }
+            });
         }
     }
 }
