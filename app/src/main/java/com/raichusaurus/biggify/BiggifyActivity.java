@@ -15,14 +15,15 @@ public class BiggifyActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "message";
 
-    private String message = "";
+    private String message = "  ";
     private int currentChar = 0;
+    private boolean space = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biggify);
-        message = getMessage();
+        message += getMessage();
         biggify();
     }
 
@@ -52,16 +53,22 @@ public class BiggifyActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    /*
-                    if (currentChar >= message.length()) {
-                        return;
+                    int delay = 50;
+                    String currentLetter = "";
+                    if (space) {
+                        space = false; // will display letter next
+                    } else {
+                        delay = 500;
+                        currentLetter += message.charAt(currentChar);
+
+                        // increment char and possibly reset to 0
+                        currentChar = ++currentChar % message.length();
+                        space = true; // brief pause between letters
                     }
-                    */
-                    currentChar = currentChar % message.length();
-                    String currentLetter = message.charAt(currentChar) + "";
+
                     messageView.setText(currentLetter);
-                    currentChar++;
-                    handler.postDelayed(this, 500);
+
+                    handler.postDelayed(this, delay);
                 }
             });
         }
