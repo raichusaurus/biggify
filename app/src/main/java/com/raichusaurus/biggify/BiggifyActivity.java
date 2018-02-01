@@ -52,9 +52,12 @@ public class BiggifyActivity extends AppCompatActivity {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    /*
                     if (currentChar >= message.length()) {
                         return;
                     }
+                    */
+                    currentChar = currentChar % message.length();
                     String currentLetter = message.charAt(currentChar) + "";
                     messageView.setText(currentLetter);
                     currentChar++;
