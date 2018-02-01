@@ -46,8 +46,7 @@ public class BiggifyActivity extends AppCompatActivity {
             float dpHeight = displayMetrics.heightPixels / density;
             float dpWidth  = displayMetrics.widthPixels / density;
 
-
-            messageView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dpWidth - 25);
+            messageView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dpWidth - 90);
 
             final Handler handler = new Handler();
             handler.post(new Runnable() {
