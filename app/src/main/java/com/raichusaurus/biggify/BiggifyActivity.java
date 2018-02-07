@@ -16,6 +16,7 @@ public class BiggifyActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "message";
 
     private String message = "  ";
+    private final String testMessage = "abcdefghijklmnopqrstuvwxyz";
     private int currentChar = 0;
     private boolean space = false;
 
@@ -23,7 +24,13 @@ public class BiggifyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_biggify);
-        message += getMessage();
+        String messageText = getMessage();
+        if (messageText.length() > 0) {
+            message += messageText;
+        }
+        else {
+            message += testMessage;
+        }
         biggify();
     }
 
@@ -46,7 +53,7 @@ public class BiggifyActivity extends AppCompatActivity {
             float dpHeight = displayMetrics.heightPixels / density;
             float dpWidth  = displayMetrics.widthPixels / density;
 
-            messageView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dpWidth - 70);
+            messageView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, dpWidth - 57); // 57 makes 'q' fit
 
             final Handler handler = new Handler();
             handler.post(new Runnable() {
