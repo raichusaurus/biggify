@@ -16,7 +16,7 @@ public class CreateMessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_message);
         NewRelic.withApplicationToken(
 
-                "<generate app token by creating a name above>"
+                "AA0bdf8aded949eb5e2129f5126c66665bfba1ab87"
         ).start(this.getApplication());
     }
 
