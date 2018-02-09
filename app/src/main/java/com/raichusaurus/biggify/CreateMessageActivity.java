@@ -1,5 +1,7 @@
 package com.raichusaurus.biggify;
 
+import com.newrelic.agent.android.NewRelic;
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +14,10 @@ public class CreateMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_message);
+        NewRelic.withApplicationToken(
+
+                "<generate app token by creating a name above>"
+        ).start(this.getApplication());
     }
 
     public void onSendMessage(View view) {
